@@ -1,71 +1,48 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
+import ContactForm from 'components/ContactForm';
+import ContactList from 'components/ContactList';
+import Filter from 'components/Filter';
+
+const initialContacts = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+];
 
 class App extends React.Component {
   state = {
-    contacts: [],
-    name: '',
+    contacts: [...initialContacts],
+    filter: '',
   };
 
-  onNameChange = e => {
-    this.setState({ name: e.currentTarget.value });
+  onFilterChange = e => {
+    const { value } = e.currentTarget;
+    this.setState({ filter: value });
   };
 
-  onFormSubmit = e => {
-    e.preventDefault();
-    const name = e.target.elements.name.value;
-    const id = nanoid();
-
+  onSubmit = ({ id, name, number }) => {
     this.setState(prevState => {
       const { contacts } = prevState;
       return (
-        !contacts.find(c => c.name === name) && {
-          contacts: [...contacts, { id, name }],
+        !contacts.find(c => c.name === name && c.number === number) && {
+          contacts: [...contacts, { id, name, number }],
         }
       );
     });
-
-    this.reset();
   };
 
-  reset() {
-    this.setState({ name: '' });
-  }
-
   render() {
-    const { name, contacts } = this.state;
+    const { contacts } = this.state;
+
     return (
       <>
         <h1>Phone book</h1>
-        {
-          //----------------------------------------------------------------
-        }
-        <form onSubmit={this.onFormSubmit}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              value={name}
-              onChange={this.onNameChange}
-            />
-          </label>
-          <button type="submit">Add contact</button>
-        </form>
-        {
-          //----------------------------------------------------------------
-        }
+        <ContactForm onSubmit={this.onSubmit} />
+
         <h2>Contacts</h2>
-        <ul>
-          {contacts.map(({ id, name }) => (
-            <li key={id}>
-              <p>{name}</p>
-            </li>
-          ))}
-        </ul>
+        <Filter value={this.state.filter} onChange={this.onFilterChange} />
+        <ContactList contacts={contacts} />
       </>
     );
   }
