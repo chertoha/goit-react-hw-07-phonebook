@@ -4,6 +4,7 @@ import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 import Box from '../Box';
 import { initialContacts } from 'utils/initialContacts';
+import FormikForm from 'components/FormikForm/FormikForm';
 
 class App extends React.Component {
   state = {
@@ -39,6 +40,7 @@ class App extends React.Component {
     const { contacts, filter } = this.state;
 
     const normalizedFilter = filter.toLowerCase();
+
     return contacts.filter(({ name }) =>
       name.toLowerCase().includes(normalizedFilter)
     );
@@ -50,7 +52,8 @@ class App extends React.Component {
     return (
       <Box pt={5} pl={7}>
         <h1>Phone book</h1>
-        <ContactForm onSubmit={this.onSubmit} />
+        {/* <ContactForm onSubmit={this.onSubmit} /> */}
+        <FormikForm onSubmit={this.onSubmit} />
 
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.onFilterChange} />
