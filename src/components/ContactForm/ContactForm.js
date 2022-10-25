@@ -2,10 +2,15 @@ import Button from 'components/Button';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
+import PropTypes from 'prop-types';
 
 class ContactForm extends React.Component {
   nameInputId = nanoid();
   numberInputId = nanoid();
+
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
 
   state = {
     name: '',

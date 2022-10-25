@@ -8,7 +8,7 @@ import {
   ContactWrapper,
 } from './ContactList.styled';
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, onDelete }) => {
   return (
     <List>
       {contacts.map(({ id, name, number }) => {
@@ -17,7 +17,14 @@ const ContactList = ({ contacts }) => {
             <ContactWrapper>
               <Name>{name}:</Name>
               <Number>{number}</Number>
-              <Button type="button">Delete</Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  onDelete(id);
+                }}
+              >
+                Delete
+              </Button>
             </ContactWrapper>
           </ListItem>
         );
@@ -34,6 +41,7 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactList;

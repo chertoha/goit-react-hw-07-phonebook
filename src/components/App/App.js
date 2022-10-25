@@ -3,13 +3,7 @@ import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 import Box from '../Box';
-
-const initialContacts = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-];
+import { initialContacts } from 'utils/initialContacts';
 
 class App extends React.Component {
   state = {
@@ -23,18 +17,35 @@ class App extends React.Component {
   };
 
   onSubmit = ({ id, name, number }) => {
-    this.setState(prevState => {
-      const { contacts } = prevState;
-      return (
-        !contacts.find(c => c.name === name && c.number === number) && {
-          contacts: [...contacts, { id, name, number }],
-        }
-      );
+    this.setState(({ contacts }) => {
+      if (contacts.find(c => c.name === name)) {
+        alert(`${name} is already in contact list`);
+        return;
+      }
+
+      return {
+        contacts: [...contacts, { id, name, number }],
+      };
     });
   };
 
+  onDelete = id => {
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(c => c.id !== id),
+    }));
+  };
+
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
   render() {
-    const { contacts } = this.state;
+    const { filter } = this.state;
 
     return (
       <Box pt={5} pl={7}>
@@ -42,8 +53,11 @@ class App extends React.Component {
         <ContactForm onSubmit={this.onSubmit} />
 
         <h2>Contacts</h2>
-        <Filter value={this.state.filter} onChange={this.onFilterChange} />
-        <ContactList contacts={contacts} />
+        <Filter value={filter} onChange={this.onFilterChange} />
+        <ContactList
+          contacts={this.getVisibleContacts()}
+          onDelete={this.onDelete}
+        />
       </Box>
     );
   }
