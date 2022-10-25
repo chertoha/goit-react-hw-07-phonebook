@@ -32,7 +32,7 @@ const validationSchema = yup.object().shape({
   number: yup.string().matches(regex.number, ERRORS.NUMBER).required(),
 });
 
-const FormikForm = ({ onSubmit, errors }) => {
+const FormikForm = ({ onSubmit }) => {
   const nameInputId = nanoid();
   const numberInputId = nanoid();
 
@@ -54,7 +54,6 @@ const FormikForm = ({ onSubmit, errors }) => {
         <ErrorWrapper>
           <Input id={nameInputId} type="text" name="name" required />
           <ErrorMessage name="name" render={msg => <Message>{msg}</Message>} />
-          {errors}
         </ErrorWrapper>
 
         <Label htmlFor={numberInputId}>Number</Label>
