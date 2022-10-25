@@ -1,7 +1,13 @@
 import { nanoid } from 'nanoid';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { StyledForm, Label, Input } from './FormikForm.styled';
+import {
+  StyledForm,
+  Label,
+  Input,
+  ErrorWrapper,
+  Message,
+} from './FormikForm.styled';
 import Button from 'components/Button';
 
 const initialValues = {
@@ -9,20 +15,24 @@ const initialValues = {
   number: '',
 };
 
+const regex = {
+  name: /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+  number:
+    /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
+};
+
+const ERRORS = {
+  NAME: "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
+  NUMBER:
+    'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
+};
+
 const validationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .matches(/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/)
-    .required(),
-  number: yup
-    .string()
-    .matches(
-      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/
-    )
-    .required(),
+  name: yup.string().matches(regex.name, ERRORS.NAME).required(),
+  number: yup.string().matches(regex.number, ERRORS.NUMBER).required(),
 });
 
-const FormikForm = ({ onSubmit }) => {
+const FormikForm = ({ onSubmit, errors }) => {
   const nameInputId = nanoid();
   const numberInputId = nanoid();
 
@@ -41,12 +51,20 @@ const FormikForm = ({ onSubmit }) => {
     >
       <StyledForm>
         <Label htmlFor={nameInputId}>Name</Label>
-        <Input id={nameInputId} type="text" name="name" required />
-        <ErrorMessage name="name" />
+        <ErrorWrapper>
+          <Input id={nameInputId} type="text" name="name" required />
+          <ErrorMessage name="name" render={msg => <Message>{msg}</Message>} />
+          {errors}
+        </ErrorWrapper>
 
         <Label htmlFor={numberInputId}>Number</Label>
-        <Input id={numberInputId} type="tel" name="number" required />
-        <ErrorMessage name="number" />
+        <ErrorWrapper>
+          <Input id={numberInputId} type="tel" name="number" required />
+          <ErrorMessage
+            name="number"
+            render={msg => <Message>{msg}</Message>}
+          />
+        </ErrorWrapper>
 
         <Button type="submit">Add contact</Button>
       </StyledForm>

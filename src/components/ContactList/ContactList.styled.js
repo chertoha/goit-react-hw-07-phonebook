@@ -22,10 +22,14 @@ export const Name = styled.span`
   display: block;
   font-size: ${p => p.theme.fontSizes.lg};
   margin-right: ${p => p.theme.space[4]};
+
+  width: 170px;
 `;
 
 export const Number = styled.span`
   display: block;
   font-size: ${p => p.theme.fontSizes.lg};
   margin-right: ${p => p.theme.space[4]};
+
+  width: 120px;
 `;
