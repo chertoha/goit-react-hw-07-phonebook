@@ -1,7 +1,7 @@
-import Box from 'components/App/Box';
+import Button from 'components/Button';
 import { nanoid } from 'nanoid';
 import React from 'react';
-import { FormBlock } from './ContactForm.styled';
+import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
 
 class ContactForm extends React.Component {
   nameInputId = nanoid();
@@ -41,8 +41,8 @@ class ContactForm extends React.Component {
 
     return (
       <FormBlock onSubmit={this.onSubmitHandle}>
-        <label htmlFor={this.nameInputId}>Name</label>
-        <input
+        <FormLabel htmlFor={this.nameInputId}>Name</FormLabel>
+        <FormInput
           id={this.nameInputId}
           type="text"
           name="name"
@@ -53,8 +53,8 @@ class ContactForm extends React.Component {
           onChange={this.onChangeHandle}
         />
 
-        <label htmlFor={this.numberInputId}>Number</label>
-        <input
+        <FormLabel htmlFor={this.numberInputId}>Number</FormLabel>
+        <FormInput
           id={this.numberInputId}
           type="tel"
           name="number"
@@ -64,7 +64,8 @@ class ContactForm extends React.Component {
           value={number}
           onChange={this.onChangeHandle}
         />
-        <button type="submit">Add contact</button>
+
+        <Button type="submit">Add contact</Button>
       </FormBlock>
     );
   }
