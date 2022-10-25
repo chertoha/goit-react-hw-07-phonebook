@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { style } from 'styled-system';
 
 export const FormBlock = styled.form`
   margin-top: ${p => p.theme.space[4]};

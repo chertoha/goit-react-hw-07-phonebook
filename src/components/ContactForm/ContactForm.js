@@ -1,8 +1,8 @@
-import Button from 'components/Button';
-import { nanoid } from 'nanoid';
 import React from 'react';
-import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
+import Button from 'components/Button';
+import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
 
 class ContactForm extends React.Component {
   nameInputId = nanoid();
