@@ -5,27 +5,45 @@ import Filter from 'components/Filter';
 import Box from '../Box';
 import { initialContacts } from 'utils/initialContacts';
 import FormikForm from 'components/FormikForm/FormikForm';
+import { LocalStorageApi } from 'services/StorageApi';
+
+localStorage.setItem('contacts', JSON.stringify(initialContacts));
 
 class App extends React.Component {
   state = {
-    contacts: [...initialContacts],
+    contacts: [],
     filter: '',
   };
+
+  storageContacts = new LocalStorageApi('contacts');
+
+  componentDidMount() {
+    const initContacts = this.storageContacts.get();
+    if (initContacts) {
+      this.setState({ contacts: initContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      this.storageContacts.update(this.state.contacts);
+    }
+  }
 
   onFilterChange = e => {
     const { value } = e.currentTarget;
     this.setState({ filter: value });
   };
 
-  onSubmit = ({ id, name, number }) => {
+  onSubmit = newContact => {
     this.setState(({ contacts }) => {
-      if (contacts.find(c => c.name === name)) {
-        alert(`${name} is already in contact list`);
+      if (contacts.find(c => c.name === newContact.name)) {
+        alert(`${newContact.name} is already in contact list`);
         return;
       }
 
       return {
-        contacts: [...contacts, { id, name, number }],
+        contacts: [...contacts, newContact],
       };
     });
   };
@@ -47,7 +65,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, contacts } = this.state;
 
     return (
       <Box pt={5} pl={7}>
@@ -57,10 +75,15 @@ class App extends React.Component {
 
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.onFilterChange} />
-        <ContactList
-          contacts={this.getVisibleContacts()}
-          onDelete={this.onDelete}
-        />
+
+        {contacts.length > 0 ? (
+          <ContactList
+            contacts={this.getVisibleContacts()}
+            onDelete={this.onDelete}
+          />
+        ) : (
+          <p>There are no contacts yet here</p>
+        )}
       </Box>
     );
   }
