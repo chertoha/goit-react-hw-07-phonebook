@@ -10,6 +10,7 @@ import { LocalStorageApi } from 'services/StorageApi';
 localStorage.setItem('contacts', JSON.stringify(initialContacts));
 
 class App extends React.Component {
+  //hooks
   state = {
     contacts: [],
     filter: '',
