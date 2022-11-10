@@ -3,11 +3,11 @@ import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 import Box from '../Box';
-import { initialContacts } from 'utils/initialContacts';
+// import { initialContacts } from 'utils/initialContacts';
 // import FormikForm from 'components/FormikForm/FormikForm';
 import { LocalStorageApi } from 'services/StorageApi';
 
-localStorage.setItem('contacts', JSON.stringify(initialContacts));
+// localStorage.setItem('contacts', JSON.stringify(initialContacts));
 const storageContacts = new LocalStorageApi('contacts');
 
 const App = () => {
