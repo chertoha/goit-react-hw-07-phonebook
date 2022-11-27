@@ -9,6 +9,8 @@ import {
   Message,
 } from './FormikForm.styled';
 import Button from 'components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
 const initialValues = {
   name: '',
@@ -32,14 +34,19 @@ const validationSchema = yup.object().shape({
   number: yup.string().matches(regex.number, ERRORS.NUMBER).required(),
 });
 
-const FormikForm = ({ onSubmit }) => {
+const FormikForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.list);
+
   const nameInputId = nanoid();
   const numberInputId = nanoid();
 
-  const handleSubmit = (values, actions) => {
-    const id = nanoid();
-
-    onSubmit({ id, ...values });
+  const handleSubmit = ({ name, number }, actions) => {
+    if (contacts.find(c => c.name === name)) {
+      alert(`${name} is already in contact list`);
+    } else {
+      dispatch(addContact(name, number));
+    }
     actions.resetForm();
   };
 

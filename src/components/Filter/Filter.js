@@ -1,17 +1,12 @@
 import Box from 'components/Box';
 import { nanoid } from 'nanoid';
 import { Field, Title } from './Filter.styled';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from 'components/redux/filterSlice';
+import { getFilter, setFilter } from 'redux/filterSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.filter);
-
-  //  const onFilterChange = e => {
-  //    setFilter(e.currentTarget.value);
-  //  };
+  const filter = useSelector(getFilter);
 
   const filterInputId = nanoid();
 
@@ -29,10 +24,5 @@ const Filter = () => {
     </Box>
   );
 };
-
-// Filter.propTypes = {
-//   value: PropTypes.string.isRequired,
-//   onChange: PropTypes.func.isRequired,
-// };
 
 export default Filter;
