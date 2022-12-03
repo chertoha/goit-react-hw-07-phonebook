@@ -3,25 +3,26 @@ import Button from 'components/Button';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
-import { addContact, getContactsList } from 'redux/contactsSlice';
-import { useGetContactsQuery } from 'redux/contactsApi';
+import { useAddContactMutation, useGetContactsQuery } from 'redux/contactsApi';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const { data: contacts } = useGetContactsQuery();
+  const [addContact, { isLoading: isUpdating }] = useAddContactMutation();
 
   const onSubmitHandle = e => {
     e.preventDefault();
 
     const name = e.target.elements.name.value;
-    const number = e.target.elements.number.value;
+    const phone = e.target.elements.number.value;
 
     if (contacts.find(c => c.name === name)) {
       alert(`${name} is already in contact list`);
     } else {
       // dispatch(addContact(name, number));
+      addContact({ name, phone });
     }
 
     setName('');
@@ -68,7 +69,9 @@ const ContactForm = () => {
         onChange={onChangeHandle}
       />
 
-      <Button type="submit">Add contact</Button>
+      <Button type="submit" disabled={isUpdating}>
+        Add contact
+      </Button>
     </FormBlock>
   );
 };

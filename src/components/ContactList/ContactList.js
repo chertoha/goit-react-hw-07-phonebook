@@ -8,14 +8,17 @@ import {
 } from './ContactList.styled';
 // import { deleteContact, getContactsList } from 'redux/contactsSlice';
 import { getFilter } from 'redux/filterSlice';
-import { useGetContactsQuery } from 'redux/contactsApi';
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+} from 'redux/contactsApi';
 import { useSelector } from 'react-redux';
 
 const ContactList = () => {
   const { data: contacts, error, isLoading } = useGetContactsQuery();
+  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
+  // console.log(contacts);
 
-  console.log(contacts);
-  console.log(useGetContactsQuery());
   // const dispatch = useDispatch();
   // const contacts = useSelector(getContactsList);
   const filter = useSelector(getFilter);
@@ -47,13 +50,24 @@ const ContactList = () => {
                 <ContactWrapper>
                   <Name>{name}:</Name>
                   <Number>{phone}</Number>
+
                   <Button
                     type="button"
                     onClick={() => {
-                      // dispatch(deleteContact(id));
+                      deleteContact(id);
                     }}
+                    disabled={isDeleting}
                   >
                     Delete
+                  </Button>
+
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      console.log('click Edit');
+                    }}
+                  >
+                    Edit
                   </Button>
                 </ContactWrapper>
               </ListItem>

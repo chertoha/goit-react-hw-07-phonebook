@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
 import { StyledButton } from './Button.styled';
 
-const Button = ({ type = 'button', onClick = null, children }) => {
+const Button = ({
+  type = 'button',
+  onClick = null,
+  disabled = false,
+  children,
+}) => {
   return (
-    <StyledButton className="button" type={type} onClick={onClick}>
+    <StyledButton
+      className="button"
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </StyledButton>
   );
@@ -12,6 +22,7 @@ const Button = ({ type = 'button', onClick = null, children }) => {
 Button.propTypes = {
   type: PropTypes.string,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
   children: PropTypes.node,
 };
 

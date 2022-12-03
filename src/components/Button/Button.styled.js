@@ -15,4 +15,9 @@ export const StyledButton = styled.button`
   :hover {
     background-color: ${p => p.theme.colors.secondaryBgd};
   }
+
+  :disabled {
+    color: #e6ebf2;
+    border-color: #e6ebf2;
+  }
 `;
