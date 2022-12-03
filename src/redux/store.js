@@ -12,4 +12,7 @@ export const store = configureStore({
     ...getDefaultMiddleware(),
     contactsApi.middleware,
   ],
+
+  // middleware: getDefaultMiddleware =>
+  //   getDefaultMiddleware().concat(contactsApi.middleware),
 });

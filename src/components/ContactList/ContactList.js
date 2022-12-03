@@ -6,58 +6,65 @@ import {
   Number,
   ContactWrapper,
 } from './ContactList.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact, getContactsList } from 'redux/contactsSlice';
-// import { getFilter } from 'redux/filterSlice';
+// import { deleteContact, getContactsList } from 'redux/contactsSlice';
+import { getFilter } from 'redux/filterSlice';
 import { useGetContactsQuery } from 'redux/contactsApi';
+import { useSelector } from 'react-redux';
 
 const ContactList = () => {
-  const { data, error, isLoading } = useGetContactsQuery();
+  const { data: contacts, error, isLoading } = useGetContactsQuery();
 
-  console.log(data);
-  const dispatch = useDispatch();
+  console.log(contacts);
+  console.log(useGetContactsQuery());
+  // const dispatch = useDispatch();
   // const contacts = useSelector(getContactsList);
-  // const filter = useSelector(getFilter);
+  const filter = useSelector(getFilter);
 
-  // const getVisibleContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
+  const getVisibleContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
 
-  //   return contacts.filter(({ name }) =>
-  //     name.toLowerCase().includes(normalizedFilter)
-  //   );
-  // };
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normalizedFilter)
+    );
+  };
 
-  // const visibleContacts = getVisibleContacts();
+  // if (!contacts) {
+  //   return <div>???</div>;
+  // }
 
-  // return (
-  //   <>
-  //     {!contacts && <div>contacts none</div>}
-  //     {contacts.length > 0 ? (
-  //       <List>
-  //         {visibleContacts.map(({ id, name, number }) => {
-  //           return (
-  //             <ListItem key={id}>
-  //               <ContactWrapper>
-  //                 <Name>{name}:</Name>
-  //                 <Number>{number}</Number>
-  //                 <Button
-  //                   type="button"
-  //                   onClick={() => {
-  //                     dispatch(deleteContact(id));
-  //                   }}
-  //                 >
-  //                   Delete
-  //                 </Button>
-  //               </ContactWrapper>
-  //             </ListItem>
-  //           );
-  //         })}
-  //       </List>
-  //     ) : (
-  //       <p>There are no contacts yet here</p>
-  //     )}
-  //   </>
-  // );
+  if (isLoading) {
+    return <div>...</div>;
+  }
+  const visibleContacts = getVisibleContacts();
+
+  return (
+    <>
+      {visibleContacts.length > 0 ? (
+        <List>
+          {visibleContacts.map(({ id, name, phone }) => {
+            return (
+              <ListItem key={id}>
+                <ContactWrapper>
+                  <Name>{name}:</Name>
+                  <Number>{phone}</Number>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      // dispatch(deleteContact(id));
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </ContactWrapper>
+              </ListItem>
+            );
+          })}
+        </List>
+      ) : (
+        <p>There are no contacts yet here</p>
+      )}
+    </>
+  );
 };
 
 export default ContactList;

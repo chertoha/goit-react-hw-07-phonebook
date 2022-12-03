@@ -23,7 +23,7 @@ export const Name = styled.span`
   font-size: ${p => p.theme.fontSizes.lg};
   margin-right: ${p => p.theme.space[4]};
 
-  width: 170px;
+  /* width: 170px; */
 `;
 
 export const Number = styled.span`
@@ -31,5 +31,5 @@ export const Number = styled.span`
   font-size: ${p => p.theme.fontSizes.lg};
   margin-right: ${p => p.theme.space[4]};
 
-  width: 120px;
+  /* width: 120px; */
 `;
