@@ -1,26 +1,18 @@
-import Button from 'components/Button';
-import {
-  List,
-  ListItem,
-  Name,
-  Number,
-  ContactWrapper,
-} from './ContactList.styled';
-// import { deleteContact, getContactsList } from 'redux/contactsSlice';
+import ContactListItem from './ContactListItem';
 import { getFilter } from 'redux/filterSlice';
 import {
   useGetContactsQuery,
   useDeleteContactMutation,
 } from 'redux/contactsApi';
 import { useSelector } from 'react-redux';
+import { List } from './ContactList.styled';
+import EditFormItem from './EditFormItem';
 
 const ContactList = () => {
   const { data: contacts, error, isLoading } = useGetContactsQuery();
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
   // console.log(contacts);
 
-  // const dispatch = useDispatch();
-  // const contacts = useSelector(getContactsList);
   const filter = useSelector(getFilter);
 
   const getVisibleContacts = () => {
@@ -30,10 +22,6 @@ const ContactList = () => {
       name.toLowerCase().includes(normalizedFilter)
     );
   };
-
-  // if (!contacts) {
-  //   return <div>???</div>;
-  // }
 
   if (isLoading) {
     return <div>...</div>;
@@ -45,32 +33,27 @@ const ContactList = () => {
       {visibleContacts.length > 0 ? (
         <List>
           {visibleContacts.map(({ id, name, phone }) => {
+            if (id === '29') {
+              return (
+                <EditFormItem
+                  key={id}
+                  contactId={id}
+                  oldName={name}
+                  oldPhone={phone}
+                />
+              );
+            }
+
             return (
-              <ListItem key={id}>
-                <ContactWrapper>
-                  <Name>{name}:</Name>
-                  <Number>{phone}</Number>
-
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      deleteContact(id);
-                    }}
-                    disabled={isDeleting}
-                  >
-                    Delete
-                  </Button>
-
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      console.log('click Edit');
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </ContactWrapper>
-              </ListItem>
+              <ContactListItem
+                key={id}
+                name={name}
+                phone={phone}
+                isDeleting={isDeleting}
+                onDelete={() => {
+                  deleteContact(id);
+                }}
+              />
             );
           })}
         </List>

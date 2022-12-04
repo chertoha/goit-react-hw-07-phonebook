@@ -33,3 +33,9 @@ export const Number = styled.span`
 
   /* width: 120px; */
 `;
+
+export const ContactFormWrapper = styled.form`
+  display: flex;
+  align-items: center;
+  line-height: 1;
+`;

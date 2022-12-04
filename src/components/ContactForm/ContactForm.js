@@ -1,50 +1,33 @@
 import React from 'react';
 import Button from 'components/Button';
-import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
 import { useAddContactMutation, useGetContactsQuery } from 'redux/contactsApi';
+import { useContactsFormFields, useSubmitContactForm } from 'hooks';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const { name, phone, onChangeHandle, resetFields } = useContactsFormFields({
+    defaultName: '',
+    defaultPhone: '',
+  });
+  const { submitContactHandler } = useSubmitContactForm();
 
   const { data: contacts } = useGetContactsQuery();
   const [addContact, { isLoading: isUpdating }] = useAddContactMutation();
 
-  const onSubmitHandle = e => {
-    e.preventDefault();
-
-    const name = e.target.elements.name.value;
-    const phone = e.target.elements.number.value;
-
-    if (contacts.find(c => c.name === name)) {
-      alert(`${name} is already in contact list`);
-    } else {
-      // dispatch(addContact(name, number));
-      addContact({ name, phone });
-    }
-
-    setName('');
-    setNumber('');
-  };
-
-  const onChangeHandle = e => {
-    const { name, value } = e.currentTarget;
-
-    if (name === 'name') {
-      setName(value);
-    }
-    if (name === 'number') {
-      setNumber(value);
-    }
-  };
-
   const nameInputId = nanoid();
-  const numberInputId = nanoid();
+  const phoneInputId = nanoid();
 
   return (
-    <FormBlock onSubmit={onSubmitHandle}>
+    <FormBlock
+      onSubmit={e => {
+        submitContactHandler(e, {
+          contactList: contacts,
+          mutationHandler: addContact,
+          resetFields: resetFields,
+        });
+      }}
+    >
       <FormLabel htmlFor={nameInputId}>Name</FormLabel>
       <FormInput
         id={nameInputId}
@@ -57,15 +40,15 @@ const ContactForm = () => {
         onChange={onChangeHandle}
       />
 
-      <FormLabel htmlFor={numberInputId}>Number</FormLabel>
+      <FormLabel htmlFor={phoneInputId}>Phone number</FormLabel>
       <FormInput
-        id={numberInputId}
+        id={phoneInputId}
         type="tel"
-        name="number"
+        name="phone"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
-        value={number}
+        value={phone}
         onChange={onChangeHandle}
       />
 
