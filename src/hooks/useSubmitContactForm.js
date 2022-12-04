@@ -1,5 +1,8 @@
+import { validateContact } from 'utils/validateContact';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 export const useSubmitContactForm = () => {
-  const submitContactHandler = (
+  const submitContactHandler = async (
     event,
     { contactId = null, mutationHandler, contactList = [], resetFields = null }
   ) => {
@@ -9,22 +12,23 @@ export const useSubmitContactForm = () => {
     const name = form.elements.name.value;
     const phone = form.elements.phone.value;
 
-    if (contactList.find(c => c.name === name)) {
-      alert(`${name} is already in contact list`);
+    try {
+      const contact = { id: contactId, name, phone };
+
+      const validateError = validateContact(contact, contactList);
+      if (validateError.status) {
+        throw new Error(validateError.message);
+      }
+
+      const updatedContact = contactId ? contact : { name, phone };
+
+      await mutationHandler(updatedContact);
+    } catch (error) {
+      Notify.failure(`${error}`);
     }
-
-    const contact = contactId
-      ? { id: contactId, name, phone }
-      : { name, phone };
-
-    console.log(contact);
-    mutationHandler(contact);
 
     resetFields && resetFields();
   };
 
   return { submitContactHandler };
 };
-
-// update
-// add

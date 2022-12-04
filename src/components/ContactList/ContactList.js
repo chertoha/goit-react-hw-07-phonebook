@@ -3,43 +3,44 @@ import { getFilter } from 'redux/filterSlice';
 import {
   useGetContactsQuery,
   useDeleteContactMutation,
+  useUpdateContactMutation,
 } from 'redux/contactsApi';
 import { useSelector } from 'react-redux';
 import { List } from './ContactList.styled';
 import EditFormItem from './EditFormItem';
+import { useState } from 'react';
+import { filterObjectsList } from 'utils/filterObjectsList';
 
 const ContactList = () => {
   const { data: contacts, error, isLoading } = useGetContactsQuery();
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
-  // console.log(contacts);
-
+  const [updateContact, { isLoading: isUpdating }] = useUpdateContactMutation();
   const filter = useSelector(getFilter);
-
-  const getVisibleContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(normalizedFilter)
-    );
-  };
+  const [editedId, setEditedId] = useState(null);
 
   if (isLoading) {
     return <div>...</div>;
   }
-  const visibleContacts = getVisibleContacts();
+  const visibleContacts = filterObjectsList(filter, contacts, 'name');
+
+  if (visibleContacts.length === 0) return <p>No such contacts</p>;
 
   return (
     <>
-      {visibleContacts.length > 0 ? (
+      {contacts.length > 0 ? (
         <List>
           {visibleContacts.map(({ id, name, phone }) => {
-            if (id === '29') {
+            if (id === editedId) {
               return (
                 <EditFormItem
                   key={id}
                   contactId={id}
                   oldName={name}
                   oldPhone={phone}
+                  onUpdate={updateContact}
+                  onCancel={() => {
+                    setEditedId(null);
+                  }}
                 />
               );
             }
@@ -50,8 +51,12 @@ const ContactList = () => {
                 name={name}
                 phone={phone}
                 isDeleting={isDeleting}
+                isUpdating={isUpdating}
                 onDelete={() => {
                   deleteContact(id);
+                }}
+                onEdit={() => {
+                  setEditedId(id);
                 }}
               />
             );

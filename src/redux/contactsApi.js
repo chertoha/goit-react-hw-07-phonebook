@@ -32,15 +32,16 @@ export const contactsApi = createApi({
     }),
 
     updateContact: builder.mutation({
-      // query: ({ id, ...patch }) => ({
-      //   url: `/contacts/${id}`,
-      //   method: 'PATCH',
-      //   body: patch,
-      // }),
-      query: ({ id, ...patch }) => {
-        console.log(`id=${id}, patch=${patch}`);
-        return { url: `/contacts/${id}`, method: 'PATCH', body: patch };
-      },
+      query: ({ id, ...patch }) => ({
+        url: `/contacts/${id}`,
+        method: 'PUT',
+        body: patch,
+      }),
+      // query: ({ id, ...patch }) => {
+      //   console.log(`id=${id}, patch=${patch}`);
+      //   return { url: `/contacts/${id}`, method: 'PUT', body: patch };
+      // },
+      invalidatesTags: ['Contacts'],
     }),
   }),
 });

@@ -1,33 +1,28 @@
 import Button from 'components/Button';
 import {
   ContactFormWrapper,
-  ContactWrapper,
   ListItem,
   Name,
   Number,
 } from './ContactList.styled';
 import { useContactsFormFields, useSubmitContactForm } from 'hooks';
-import {
-  useGetContactsQuery,
-  useUpdateContactMutation,
-} from 'redux/contactsApi';
-import ContactListItem from './ContactListItem';
+import { useGetContactsQuery } from 'redux/contactsApi';
 
-const EditFormItem = ({ contactId, oldName, oldPhone, onUpdate }) => {
+const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
   const { name, phone, onChangeHandle } = useContactsFormFields({
     defaultName: oldName,
     defaultPhone: oldPhone,
   });
-  const { submitContactHandler } = useSubmitContactForm();
   const { data: contacts } = useGetContactsQuery();
-  const [updateContact, { isLoading: isUpdating }] = useUpdateContactMutation();
+  const { submitContactHandler } = useSubmitContactForm();
 
   const onSubmitHandle = e => {
     submitContactHandler(e, {
       contactId: contactId,
       contactList: contacts,
-      mutationHandler: updateContact,
+      mutationHandler: onUpdate,
     });
+    onCancel();
   };
 
   return (
@@ -56,16 +51,9 @@ const EditFormItem = ({ contactId, oldName, oldPhone, onUpdate }) => {
           />
         </Number>
 
-        <Button type="submit" disabled={isUpdating}>
-          Update
-        </Button>
+        <Button type="submit">Update</Button>
 
-        <Button
-          type="button"
-          onClick={() => {
-            console.log('click Cancel');
-          }}
-        >
+        <Button type="button" onClick={onCancel}>
           Cancel
         </Button>
       </ContactFormWrapper>
