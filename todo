@@ -2,6 +2,3 @@
 - spinner for contact-list
 - pagination ?
 - formik update
-
-- check contacts array separate for edit form item
-- useOnSubmit - split code - errors and alert
