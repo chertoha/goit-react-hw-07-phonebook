@@ -9,6 +9,8 @@ import { useContactsFormFields, useSubmitContactForm } from 'hooks';
 import { useGetContactsQuery } from 'redux/contactsApi';
 
 const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
+  const [updateContact, { isLoading: isUpdating }] = useUpdateContactMutation();
+
   const { name, phone, onChangeHandle } = useContactsFormFields({
     defaultName: oldName,
     defaultPhone: oldPhone,
