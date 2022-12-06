@@ -53,7 +53,7 @@ const ContactForm = () => {
         onChange={onChangeHandle}
       />
 
-      <Button type="submit" disabled={isSubmitting}>
+      <Button type="submit" disabled={isSubmitting} size="md">
         Add contact
         {isSubmitting && <Spinner type={Spinner.type.BUTTON} />}
       </Button>

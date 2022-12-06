@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { ClipLoader, PropagateLoader } from 'react-spinners';
+import { Wrapper } from './Spinner.styled';
 
 const TYPE = {
   BUTTON: 'button',
@@ -8,11 +9,17 @@ const TYPE = {
 
 const Spinner = ({ type }) => {
   if (type === TYPE.BUTTON)
-    return <ClipLoader color="#435651" size={12} speedMultiplier={1} />;
+    return (
+      <Wrapper>
+        <ClipLoader color="#435651" size={12} speedMultiplier={1} />;
+      </Wrapper>
+    );
 
   if (type === TYPE.DEFAULT)
     return (
-      <PropagateLoader color="#435651" loading size={5} speedMultiplier={2} />
+      <Wrapper>
+        <PropagateLoader color="#435651" loading size={5} speedMultiplier={2} />
+      </Wrapper>
     );
 };
 

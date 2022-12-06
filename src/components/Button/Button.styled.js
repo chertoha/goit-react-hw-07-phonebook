@@ -4,7 +4,7 @@ export const StyledButton = styled.button`
   padding: ${p => p.theme.space[2]} ${p => p.theme.space[3]};
   cursor: pointer;
 
-  font-size: ${p => p.theme.fontSizes.sm};
+  font-size: ${p => p.theme.fontSizes[p.size]};
 
   background-color: transparent;
   border: none;

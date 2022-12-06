@@ -10,6 +10,11 @@ export const theme = {
     accent: '#42c5f5',
     border: '#969595',
     error: '#faeecf',
+    gray: {
+      100: '#EDF2F7',
+      200: '#E2E8F0',
+      300: '#CBD5E0',
+    },
   },
 
   borders: {},
