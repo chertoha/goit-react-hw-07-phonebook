@@ -4,9 +4,26 @@ import Filter from 'components/Filter';
 import Box from '../Box';
 // import FormikForm from 'components/FormikForm/FormikForm';
 
+// const App = () => {
+//   return (
+//     <Box pt={5} pl={7}>
+//       <h1>Phone book</h1>
+
+//       <ContactForm />
+//       {/* <FormikForm /> */}
+
+//       <h2>Contacts</h2>
+
+//       <Filter />
+
+//       <ContactList />
+//     </Box>
+//   );
+// };
+
 const App = () => {
   return (
-    <Box pt={5} pl={7}>
+    <>
       <h1>Phone book</h1>
 
       <ContactForm />
@@ -17,7 +34,7 @@ const App = () => {
       <Filter />
 
       <ContactList />
-    </Box>
+    </>
   );
 };
 

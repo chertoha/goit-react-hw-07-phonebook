@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Button from 'components/Button';
 import {
   ContactFormWrapper,
@@ -6,7 +7,12 @@ import {
   Number,
 } from './ContactList.styled';
 import { useContactsFormFields, useSubmitContactForm } from 'hooks';
-import { useGetContactsQuery } from 'redux/contactsApi';
+import {
+  useGetContactsQuery,
+  useUpdateContactMutation,
+} from 'redux/contactsApi';
+import { ClipLoader } from 'react-spinners';
+import Spinner from 'components/Spinner';
 
 const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
   const [updateContact, { isLoading: isUpdating }] = useUpdateContactMutation();
@@ -18,12 +24,13 @@ const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
   const { data: contacts } = useGetContactsQuery();
   const { submitContactHandler } = useSubmitContactForm();
 
-  const onSubmitHandle = e => {
-    submitContactHandler(e, {
+  const onSubmitHandle = async e => {
+    await submitContactHandler(e, {
       contactId: contactId,
       contactList: contacts,
-      mutationHandler: onUpdate,
+      mutationHandler: updateContact,
     });
+
     onCancel();
   };
 
@@ -53,7 +60,10 @@ const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
           />
         </Number>
 
-        <Button type="submit">Update</Button>
+        <Button type="submit" disabled={isUpdating}>
+          Update
+          {isUpdating && <Spinner type={Spinner.type.BUTTON} />}
+        </Button>
 
         <Button type="button" onClick={onCancel}>
           Cancel
@@ -61,6 +71,13 @@ const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
       </ContactFormWrapper>
     </ListItem>
   );
+};
+
+EditFormItem.propTypes = {
+  contactId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  oldName: PropTypes.string.isRequired,
+  oldPhone: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default EditFormItem;

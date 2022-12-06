@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
 import { useAddContactMutation, useGetContactsQuery } from 'redux/contactsApi';
 import { useContactsFormFields, useSubmitContactForm } from 'hooks';
+import Spinner from 'components/Spinner';
 
 const ContactForm = () => {
   const { name, phone, onChangeHandle, resetFields } = useContactsFormFields({
@@ -13,7 +14,7 @@ const ContactForm = () => {
   const { submitContactHandler } = useSubmitContactForm();
 
   const { data: contacts } = useGetContactsQuery();
-  const [addContact, { isLoading: isUpdating }] = useAddContactMutation();
+  const [addContact, { isLoading: isSubmitting }] = useAddContactMutation();
 
   const nameInputId = nanoid();
   const phoneInputId = nanoid();
@@ -52,8 +53,9 @@ const ContactForm = () => {
         onChange={onChangeHandle}
       />
 
-      <Button type="submit" disabled={isUpdating}>
+      <Button type="submit" disabled={isSubmitting}>
         Add contact
+        {isSubmitting && <Spinner type={Spinner.type.BUTTON} />}
       </Button>
     </FormBlock>
   );
