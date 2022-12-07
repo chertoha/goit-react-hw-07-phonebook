@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const EditForm = styled('form')`
+  /* display: flex;
+  flex-direction: column; */
   width: 100%;
   height: 100%;
   padding: ${p => p.theme.space[4]};
@@ -12,11 +14,14 @@ export const EditForm = styled('form')`
 
 export const FieldWrapper = styled('div')`
   display: flex;
-
+  flex-wrap: wrap;
+  row-gap: ${p => p.theme.space[4]};
   align-items: center;
 `;
 
 export const Label = styled('label')`
+  display: flex;
+  align-items: center;
   font-size: ${p => p.theme.fontSizes.md};
   margin-right: ${p => p.theme.space[4]};
 
@@ -26,9 +31,11 @@ export const Label = styled('label')`
 `;
 
 export const Field = styled('input')`
+  width: 200px;
+
   padding: ${p => p.theme.space[2]};
   padding-left: ${p => p.theme.space[3]};
-  margin-left: ${p => p.theme.space[2]};
+  margin-left: ${p => p.theme.space[3]};
 
   font-size: ${p => p.theme.fontSizes.md};
   border: 1px solid ${p => p.theme.colors.border};
@@ -37,6 +44,6 @@ export const Field = styled('input')`
 
 export const Tools = styled('div')`
   display: flex;
-  column-gap: ${p => p.theme.space[4]};
-  margin-top: ${p => p.theme.space[5]};
+  column-gap: ${p => p.theme.space[3]};
+  margin-top: ${p => p.theme.space[4]};
 `;

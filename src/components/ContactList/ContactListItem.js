@@ -7,58 +7,57 @@ import {
   Name,
   Number,
   ContactWrapper,
-  ToolsCell,
+  ToolsWrapper,
 } from './ContactList.styled';
+import { BsFillPersonFill, BsFillTelephoneFill } from 'react-icons/bs';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { GrEdit } from 'react-icons/gr';
+import Box from 'components/Box';
 
 const ContactListItem = ({ id, name, phone, onEdit }) => {
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
 
   return (
-    <tr>
-      <td>
-        <Name>{name}:</Name>
-      </td>
-      <td>
-        <Number>{phone}</Number>
-      </td>
-      <ToolsCell>
-        <Button type="button" onClick={onEdit}>
-          Edit
+    <ListItem>
+      <ContactWrapper>
+        <Name>
+          <Box as="span">
+            <BsFillPersonFill size={14} />
+          </Box>
+          {name}
+        </Name>
+        <Number>
+          <Box as="span">
+            <BsFillTelephoneFill size={12} />
+          </Box>
+
+          {phone}
+        </Number>
+      </ContactWrapper>
+
+      <ToolsWrapper>
+        <Button size="xs" type="button" onClick={onEdit}>
+          {/* Edit */}
+          <GrEdit size="14" />
         </Button>
         <Button
+          size="xs"
           type="button"
           onClick={() => {
             deleteContact(id);
           }}
           disabled={isDeleting}
         >
-          Delete
-          {isDeleting && <Spinner type={Spinner.type.BUTTON} />}
+          {/* Delete */}
+
+          {isDeleting ? (
+            <Spinner type={Spinner.type.BUTTON} />
+          ) : (
+            <RiDeleteBin6Line size="14" />
+          )}
         </Button>
-      </ToolsCell>
-    </tr>
-
-    // <ListItem>
-    //   <ContactWrapper>
-    //     <Name>{name}:</Name>
-    //     <Number>{phone}</Number>
-
-    // <Button type="button" onClick={onEdit}>
-    //   Edit
-    // </Button>
-
-    // <Button
-    //   type="button"
-    //   onClick={() => {
-    //     deleteContact(id);
-    //   }}
-    //   disabled={isDeleting}
-    // >
-    //   Delete
-    //   {isDeleting && <Spinner type={Spinner.type.BUTTON} />}
-    // </Button>
-    //   </ContactWrapper>
-    // </ListItem>
+      </ToolsWrapper>
+    </ListItem>
   );
 };
 

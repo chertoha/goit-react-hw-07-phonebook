@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { List } from './ContactList.styled';
 import { useState } from 'react';
 import { filterObjectsList } from 'utils/filterObjectsList';
-import { PropagateLoader } from 'react-spinners';
+import Box from 'components/Box';
 
 const ContactList = () => {
   const { data: contacts, error, isLoading } = useGetContactsQuery();
@@ -16,9 +16,9 @@ const ContactList = () => {
 
   if (isLoading) {
     return (
-      <div>
+      <Box textAlign="center">
         <Spinner type={Spinner.type.DEFAULT} />
-      </div>
+      </Box>
     );
   }
 
@@ -31,51 +31,8 @@ const ContactList = () => {
   if (visibleContacts.length === 0) return <p>No such contacts</p>;
 
   return (
-    <>
+    <Box border="1px solid" borderColor="gray.300" borderRadius={5}>
       {contacts.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Person</th>
-              <th>Phone</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {visibleContacts.map(({ id, name, phone }) => {
-              if (id === editedId) {
-                return (
-                  <EditFormItem
-                    key={id}
-                    contactId={id}
-                    oldName={name}
-                    oldPhone={phone}
-                    onCancel={() => {
-                      setEditedId(null);
-                    }}
-                  />
-                );
-              }
-
-              return (
-                <ContactListItem
-                  key={id}
-                  id={id}
-                  name={name}
-                  phone={phone}
-                  onEdit={() => {
-                    setEditedId(id);
-                  }}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-      ) : (
-        <p>There are no contacts yet here</p>
-      )}
-
-      {/* {contacts.length > 0 ? (
         <List>
           {visibleContacts.map(({ id, name, phone }) => {
             if (id === editedId) {
@@ -107,8 +64,8 @@ const ContactList = () => {
         </List>
       ) : (
         <p>There are no contacts yet here</p>
-      )} */}
-    </>
+      )}
+    </Box>
   );
 };
 

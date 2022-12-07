@@ -20,6 +20,7 @@ import {
   Label,
   Tools,
 } from './EditFormItem.styled';
+import { BsFillPersonFill, BsFillTelephoneFill } from 'react-icons/bs';
 
 const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
   const [updateContact, { isLoading: isUpdating }] = useUpdateContactMutation();
@@ -42,86 +43,48 @@ const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
   };
 
   return (
-    <tr>
-      <td colSpan={3}>
-        <EditForm onSubmit={onSubmitHandle}>
-          <FieldWrapper>
-            <Label>
-              Person
-              <Field
-                type="text"
-                name="name"
-                value={name}
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                required
-                onChange={onChangeHandle}
-              />
-            </Label>
+    <ListItem>
+      <EditForm onSubmit={onSubmitHandle}>
+        <FieldWrapper>
+          <Label>
+            <BsFillPersonFill size="16" />
+            <Field
+              type="text"
+              name="name"
+              value={name}
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+              onChange={onChangeHandle}
+            />
+          </Label>
 
-            <Label>
-              Phone
-              <Field
-                type="tel"
-                name="phone"
-                value={phone}
-                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                required
-                onChange={onChangeHandle}
-              />
-            </Label>
-          </FieldWrapper>
+          <Label>
+            <BsFillTelephoneFill size="14" />
+            <Field
+              type="tel"
+              name="phone"
+              value={phone}
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+              onChange={onChangeHandle}
+            />
+          </Label>
+        </FieldWrapper>
 
-          <Tools>
-            <Button type="submit" disabled={isUpdating}>
-              Update
-              {isUpdating && <Spinner type={Spinner.type.BUTTON} />}
-            </Button>
+        <Tools>
+          <Button type="submit" disabled={isUpdating}>
+            Update
+            {isUpdating && <Spinner type={Spinner.type.BUTTON} />}
+          </Button>
 
-            <Button type="button" onClick={onCancel}>
-              Cancel
-            </Button>
-          </Tools>
-        </EditForm>
-      </td>
-    </tr>
-
-    // <ListItem>
-    //   <ContactFormWrapper onSubmit={onSubmitHandle}>
-    // <Name>
-    //   <input
-    //     type="text"
-    //     name="name"
-    //     value={name}
-    //     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-    //     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-    //     required
-    //     onChange={onChangeHandle}
-    //   />
-    // </Name>
-    // <Number>
-    //   <input
-    //     type="tel"
-    //     name="phone"
-    //     value={phone}
-    //     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-    //     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-    //     required
-    //     onChange={onChangeHandle}
-    //   />
-    // </Number>
-
-    // <Button type="submit" disabled={isUpdating}>
-    //   Update
-    //   {isUpdating && <Spinner type={Spinner.type.BUTTON} />}
-    // </Button>
-
-    // <Button type="button" onClick={onCancel}>
-    //   Cancel
-    // </Button>
-    //   </ContactFormWrapper>
-    // </ListItem>
+          <Button type="button" onClick={onCancel}>
+            Cancel
+          </Button>
+        </Tools>
+      </EditForm>
+    </ListItem>
   );
 };
 

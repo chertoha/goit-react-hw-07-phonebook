@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Container = ({ children }) => {
   return (
-    <Box ml="auto" mr="auto" width={576} pl={15} pr={15}>
+    <Box ml="auto" mr="auto" minWidth={290} maxWidth={568} pl={15} pr={15}>
       {children}
     </Box>
   );

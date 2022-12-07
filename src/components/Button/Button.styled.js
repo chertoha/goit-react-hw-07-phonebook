@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
-  padding: ${p => p.theme.space[2]} ${p => p.theme.space[3]};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: ${p => p.theme.space[2]} ${p => p.theme.space[2]};
   cursor: pointer;
 
   font-size: ${p => p.theme.fontSizes[p.size]};

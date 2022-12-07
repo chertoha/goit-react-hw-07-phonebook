@@ -54,8 +54,11 @@ const ContactForm = () => {
       />
 
       <Button type="submit" disabled={isSubmitting} size="md">
-        Add contact
-        {isSubmitting && <Spinner type={Spinner.type.BUTTON} />}
+        {isSubmitting ? (
+          <Spinner type={Spinner.type.BUTTON} />
+        ) : (
+          <span> Add contact</span>
+        )}
       </Button>
     </FormBlock>
   );

@@ -4,8 +4,6 @@ export const FormBlock = styled.form`
   margin-top: ${p => p.theme.space[4]};
   margin-bottom: ${p => p.theme.space[5]};
   padding: ${p => p.theme.space[5]};
-  padding-right: ${p => p.theme.space[7]};
-  padding-left: ${p => p.theme.space[7]};
 
   /* width: 300px; */
 
@@ -15,6 +13,11 @@ export const FormBlock = styled.form`
 
   border: 1px solid ${p => p.theme.colors.gray[300]};
   border-radius: ${p => p.theme.radii.borderRadius};
+
+  @media screen and (min-width: 480px) {
+    padding-right: ${p => p.theme.space[7]};
+    padding-left: ${p => p.theme.space[7]};
+  }
 `;
 
 export const FormLabel = styled.label`

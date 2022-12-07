@@ -11,7 +11,7 @@ const Filter = () => {
   const filterInputId = nanoid();
 
   return (
-    <Box display="flex" flexDirection="column" pt={4} pb={4} pl={7} pr={7}>
+    <Box display="flex" flexDirection="column" pt={4} pb={4}>
       {/* <Title htmlFor={filterInputId}>Find contacts by name</Title> */}
       <Field
         id={filterInputId}

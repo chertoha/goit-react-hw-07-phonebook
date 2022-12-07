@@ -11,7 +11,7 @@ const Spinner = ({ type }) => {
   if (type === TYPE.BUTTON)
     return (
       <Wrapper>
-        <ClipLoader color="#435651" size={12} speedMultiplier={1} />;
+        <ClipLoader color="#435651" size={12} speedMultiplier={1} />
       </Wrapper>
     );
 
