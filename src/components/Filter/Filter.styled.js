@@ -7,9 +7,11 @@ export const Title = styled.label`
 `;
 
 export const Field = styled.input`
-  width: 200px;
+  /* width: 200px; */
   padding: ${p => p.theme.space[2]};
+  padding-left: ${p => p.theme.space[3]};
   margin-bottom: ${p => p.theme.space[4]};
 
   border: 1px solid ${p => p.theme.colors.border};
+  border-radius: ${p => p.theme.radii.borderRadius};
 `;

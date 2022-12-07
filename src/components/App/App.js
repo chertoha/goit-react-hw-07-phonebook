@@ -37,7 +37,9 @@ const App = () => {
       </Container>
 
       <Container>
-        <h2>Contacts</h2>
+        <Box as="h2" textAlign="center">
+          Contacts
+        </Box>
       </Container>
 
       <Container>

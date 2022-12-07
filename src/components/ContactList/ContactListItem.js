@@ -1,23 +1,30 @@
 import Button from 'components/Button';
 import Spinner from 'components/Spinner';
 import PropTypes from 'prop-types';
-import { ClipLoader } from 'react-spinners';
 import { useDeleteContactMutation } from 'redux/contactsApi';
-import { ListItem, Name, Number, ContactWrapper } from './ContactList.styled';
+import {
+  ListItem,
+  Name,
+  Number,
+  ContactWrapper,
+  ToolsCell,
+} from './ContactList.styled';
 
 const ContactListItem = ({ id, name, phone, onEdit }) => {
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
 
   return (
-    <ListItem>
-      <ContactWrapper>
+    <tr>
+      <td>
         <Name>{name}:</Name>
+      </td>
+      <td>
         <Number>{phone}</Number>
-
+      </td>
+      <ToolsCell>
         <Button type="button" onClick={onEdit}>
           Edit
         </Button>
-
         <Button
           type="button"
           onClick={() => {
@@ -28,8 +35,30 @@ const ContactListItem = ({ id, name, phone, onEdit }) => {
           Delete
           {isDeleting && <Spinner type={Spinner.type.BUTTON} />}
         </Button>
-      </ContactWrapper>
-    </ListItem>
+      </ToolsCell>
+    </tr>
+
+    // <ListItem>
+    //   <ContactWrapper>
+    //     <Name>{name}:</Name>
+    //     <Number>{phone}</Number>
+
+    // <Button type="button" onClick={onEdit}>
+    //   Edit
+    // </Button>
+
+    // <Button
+    //   type="button"
+    //   onClick={() => {
+    //     deleteContact(id);
+    //   }}
+    //   disabled={isDeleting}
+    // >
+    //   Delete
+    //   {isDeleting && <Spinner type={Spinner.type.BUTTON} />}
+    // </Button>
+    //   </ContactWrapper>
+    // </ListItem>
   );
 };
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const List = styled.ul`
   /* list-style: disc; */
   padding-left: ${p => p.theme.space[4]};
+  display: grid;
 `;
 
 export const ListItem = styled.li`
@@ -38,4 +39,8 @@ export const ContactFormWrapper = styled.form`
   display: flex;
   align-items: center;
   line-height: 1;
+`;
+
+export const ToolsCell = styled.td`
+  display: flex;
 `;

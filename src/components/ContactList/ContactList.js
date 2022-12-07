@@ -33,6 +33,49 @@ const ContactList = () => {
   return (
     <>
       {contacts.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Phone</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {visibleContacts.map(({ id, name, phone }) => {
+              if (id === editedId) {
+                return (
+                  <EditFormItem
+                    key={id}
+                    contactId={id}
+                    oldName={name}
+                    oldPhone={phone}
+                    onCancel={() => {
+                      setEditedId(null);
+                    }}
+                  />
+                );
+              }
+
+              return (
+                <ContactListItem
+                  key={id}
+                  id={id}
+                  name={name}
+                  phone={phone}
+                  onEdit={() => {
+                    setEditedId(id);
+                  }}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <p>There are no contacts yet here</p>
+      )}
+
+      {/* {contacts.length > 0 ? (
         <List>
           {visibleContacts.map(({ id, name, phone }) => {
             if (id === editedId) {
@@ -64,7 +107,7 @@ const ContactList = () => {
         </List>
       ) : (
         <p>There are no contacts yet here</p>
-      )}
+      )} */}
     </>
   );
 };

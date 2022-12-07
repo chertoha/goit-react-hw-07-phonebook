@@ -11,8 +11,8 @@ const Filter = () => {
   const filterInputId = nanoid();
 
   return (
-    <Box display="flex" flexDirection="column" pt={4} pb={4} width={300}>
-      <Title htmlFor={filterInputId}>Find contacts by name</Title>
+    <Box display="flex" flexDirection="column" pt={4} pb={4} pl={7} pr={7}>
+      {/* <Title htmlFor={filterInputId}>Find contacts by name</Title> */}
       <Field
         id={filterInputId}
         type="text"
@@ -20,6 +20,7 @@ const Filter = () => {
         onChange={e => {
           dispatch(setFilter(e.currentTarget.value));
         }}
+        placeholder="Search contact"
       />
     </Box>
   );
