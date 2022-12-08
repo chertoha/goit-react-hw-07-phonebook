@@ -40,11 +40,12 @@ export const Name = styled.div`
   align-items: center;
   column-gap: ${p => p.theme.space[3]};
   flex-basis: 100%;
-  font-size: ${p => p.theme.fontSizes.md};
+  font-size: ${p => p.theme.fontSizes.lg};
   margin-right: ${p => p.theme.space[4]};
 
   @media screen and (min-width: 480px) {
     flex-basis: 50%;
+    font-size: ${p => p.theme.fontSizes.md};
   }
 
   /* width: 170px; */
@@ -55,9 +56,12 @@ export const Number = styled.div`
   align-items: center;
   column-gap: ${p => p.theme.space[3]};
   /* flex-basis: 50%; */
-  font-size: ${p => p.theme.fontSizes.md};
+  font-size: ${p => p.theme.fontSizes.lg};
   margin-right: ${p => p.theme.space[4]};
 
+  @media screen and (min-width: 480px) {
+    font-size: ${p => p.theme.fontSizes.md};
+  }
   /* width: 120px; */
 `;
 
@@ -73,8 +77,12 @@ export const ContactFormWrapper = styled.form`
 
 export const ToolsWrapper = styled.div`
   display: flex;
-  column-gap: ${p => p.theme.space[2]};
+  column-gap: ${p => p.theme.space[3]};
   flex-wrap: wrap;
   align-items: center;
   line-height: 1;
+
+  @media screen and (min-width: 480px) {
+    column-gap: ${p => p.theme.space[2]};
+  }
 `;

@@ -1,6 +1,4 @@
-- icons for edit form (person, phone)
-- icons for buttons (edit, delete, update, cancel)
 - pagination ?
-- container - jusify - center
+
 - formik update
-- mobile markup
+- notifications - split to separate file

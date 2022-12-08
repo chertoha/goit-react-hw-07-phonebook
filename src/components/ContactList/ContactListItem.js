@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
+import Box from 'components/Box';
 import Button from 'components/Button';
 import Spinner from 'components/Spinner';
-import PropTypes from 'prop-types';
 import { useDeleteContactMutation } from 'redux/contactsApi';
 import {
   ListItem,
@@ -12,10 +13,19 @@ import {
 import { BsFillPersonFill, BsFillTelephoneFill } from 'react-icons/bs';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { GrEdit } from 'react-icons/gr';
-import Box from 'components/Box';
+import { useMediaQuery } from 'react-responsive';
+import Notify from 'utils/notification';
+import { useEffect } from 'react';
 
 const ContactListItem = ({ id, name, phone, onEdit }) => {
-  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
+  const [deleteContact, { isLoading: isDeleting, isSuccess }] =
+    useDeleteContactMutation();
+
+  const isMobile = useMediaQuery({ query: '(max-width: 479px)' });
+
+  useEffect(() => {
+    isSuccess && Notify.success('Success!!');
+  }, [isSuccess]);
 
   return (
     <ListItem>
@@ -36,12 +46,12 @@ const ContactListItem = ({ id, name, phone, onEdit }) => {
       </ContactWrapper>
 
       <ToolsWrapper>
-        <Button size="xs" type="button" onClick={onEdit}>
+        <Button size={isMobile ? 'lg' : 'xs'} type="button" onClick={onEdit}>
           {/* Edit */}
-          <GrEdit size="14" />
+          <GrEdit size={isMobile ? '20' : '14'} />
         </Button>
         <Button
-          size="xs"
+          size={isMobile ? 'lg' : 'xs'}
           type="button"
           onClick={() => {
             deleteContact(id);
@@ -53,7 +63,7 @@ const ContactListItem = ({ id, name, phone, onEdit }) => {
           {isDeleting ? (
             <Spinner type={Spinner.type.BUTTON} />
           ) : (
-            <RiDeleteBin6Line size="14" />
+            <RiDeleteBin6Line size={isMobile ? '20' : '14'} />
           )}
         </Button>
       </ToolsWrapper>

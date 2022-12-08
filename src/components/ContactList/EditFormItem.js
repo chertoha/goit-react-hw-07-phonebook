@@ -1,12 +1,6 @@
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
-import {
-  ContactFormWrapper,
-  ListItem,
-  Name,
-  Number,
-  ToolsCell,
-} from './ContactList.styled';
+import { ListItem } from './ContactList.styled';
 import { useContactsFormFields, useSubmitContactForm } from 'hooks';
 import {
   useGetContactsQuery,
@@ -21,6 +15,7 @@ import {
   Tools,
 } from './EditFormItem.styled';
 import { BsFillPersonFill, BsFillTelephoneFill } from 'react-icons/bs';
+import { useMediaQuery } from 'react-responsive';
 
 const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
   const [updateContact, { isLoading: isUpdating }] = useUpdateContactMutation();
@@ -31,6 +26,8 @@ const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
   });
   const { data: contacts } = useGetContactsQuery();
   const { submitContactHandler } = useSubmitContactForm();
+
+  const isMobile = useMediaQuery({ query: '(max-width: 479px)' });
 
   const onSubmitHandle = async e => {
     await submitContactHandler(e, {
@@ -74,12 +71,20 @@ const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
         </FieldWrapper>
 
         <Tools>
-          <Button type="submit" disabled={isUpdating}>
+          <Button
+            type="submit"
+            disabled={isUpdating}
+            size={isMobile ? 'lg' : 'md'}
+          >
             Update
             {isUpdating && <Spinner type={Spinner.type.BUTTON} />}
           </Button>
 
-          <Button type="button" onClick={onCancel}>
+          <Button
+            type="button"
+            onClick={onCancel}
+            size={isMobile ? 'lg' : 'md'}
+          >
             Cancel
           </Button>
         </Tools>

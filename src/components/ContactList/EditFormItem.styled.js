@@ -15,6 +15,7 @@ export const EditForm = styled('form')`
 export const FieldWrapper = styled('div')`
   display: flex;
   flex-wrap: wrap;
+
   row-gap: ${p => p.theme.space[4]};
   align-items: center;
 `;
@@ -37,13 +38,21 @@ export const Field = styled('input')`
   padding-left: ${p => p.theme.space[3]};
   margin-left: ${p => p.theme.space[3]};
 
-  font-size: ${p => p.theme.fontSizes.md};
+  font-size: ${p => p.theme.fontSizes.lg};
   border: 1px solid ${p => p.theme.colors.border};
   border-radius: ${p => p.theme.radii.borderRadius};
+
+  @media screen and (min-width: 480px) {
+    font-size: ${p => p.theme.fontSizes.md};
+  }
 `;
 
 export const Tools = styled('div')`
   display: flex;
   column-gap: ${p => p.theme.space[3]};
-  margin-top: ${p => p.theme.space[4]};
+  margin-top: ${p => p.theme.space[5]};
+
+  @media screen and (min-width: 480px) {
+    margin-top: ${p => p.theme.space[4]};
+  }
 `;
