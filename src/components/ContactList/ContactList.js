@@ -28,7 +28,7 @@ const ContactList = () => {
 
   const visibleContacts = filterObjectsList(filter, contacts, 'name');
 
-  if (visibleContacts.length === 0) return <p>No such contacts</p>;
+  if (visibleContacts.length === 0) return <p>No contacts</p>;
 
   return (
     <Box border="1px solid" borderColor="gray.300" borderRadius={5}>
