@@ -1,5 +1,5 @@
 import { validateContact } from 'utils/validateContact';
-import Notify from 'utils/notification';
+import { success, failure } from 'utils/notification';
 
 export const useSubmitContactForm = () => {
   const submitContactHandler = async (
@@ -23,9 +23,9 @@ export const useSubmitContactForm = () => {
       const updatedContact = contactId ? contact : { name, phone };
 
       await mutationHandler(updatedContact);
-      Notify.success(`Success!!!`);
+      success();
     } catch (error) {
-      Notify.failure(`${error}`);
+      failure(`${error}`);
     }
 
     resetFields && resetFields();

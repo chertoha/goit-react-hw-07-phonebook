@@ -6,4 +6,12 @@ Notify.init({
   position: 'right-top',
 });
 
+export const success = () => {
+  Notify.success('Success');
+};
+
+export const failure = message => {
+  Notify.success(message);
+};
+
 export default Notify;

@@ -14,7 +14,7 @@ import { BsFillPersonFill, BsFillTelephoneFill } from 'react-icons/bs';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { GrEdit } from 'react-icons/gr';
 import { useMediaQuery } from 'react-responsive';
-import Notify from 'utils/notification';
+import { success } from 'utils/notification';
 import { useEffect } from 'react';
 
 const ContactListItem = ({ id, name, phone, onEdit }) => {
@@ -24,7 +24,7 @@ const ContactListItem = ({ id, name, phone, onEdit }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 479px)' });
 
   useEffect(() => {
-    isSuccess && Notify.success('Success!!');
+    isSuccess && success();
   }, [isSuccess]);
 
   return (
