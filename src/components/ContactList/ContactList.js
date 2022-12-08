@@ -1,3 +1,4 @@
+import Box from 'components/Box';
 import ContactListItem from './ContactListItem';
 import EditFormItem from './EditFormItem';
 import Spinner from 'components/Spinner';
@@ -7,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { List } from './ContactList.styled';
 import { useState } from 'react';
 import { filterObjectsList } from 'utils/filterObjectsList';
-import Box from 'components/Box';
 
 const ContactList = () => {
   const { data: contacts, error, isLoading } = useGetContactsQuery();

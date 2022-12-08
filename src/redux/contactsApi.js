@@ -37,10 +37,6 @@ export const contactsApi = createApi({
         method: 'PUT',
         body: patch,
       }),
-      // query: ({ id, ...patch }) => {
-      //   console.log(`id=${id}, patch=${patch}`);
-      //   return { url: `/contacts/${id}`, method: 'PUT', body: patch };
-      // },
       invalidatesTags: ['Contacts'],
     }),
   }),

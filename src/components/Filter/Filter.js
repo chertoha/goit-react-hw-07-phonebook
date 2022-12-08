@@ -1,6 +1,6 @@
 import Box from 'components/Box';
 import { nanoid } from 'nanoid';
-import { Field, Title } from './Filter.styled';
+import { Field } from './Filter.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilter, setFilter } from 'redux/filterSlice';
 
@@ -12,7 +12,6 @@ const Filter = () => {
 
   return (
     <Box display="flex" flexDirection="column" pt={4} pb={4}>
-      {/* <Title htmlFor={filterInputId}>Find contacts by name</Title> */}
       <Field
         id={filterInputId}
         type="text"

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const EditForm = styled('form')`
-  /* display: flex;
-  flex-direction: column; */
   width: 100%;
   height: 100%;
   padding: ${p => p.theme.space[4]};

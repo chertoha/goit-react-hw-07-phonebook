@@ -11,7 +11,7 @@ export const success = () => {
 };
 
 export const failure = message => {
-  Notify.success(message);
+  Notify.failure(message);
 };
 
 export default Notify;

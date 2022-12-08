@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
+import Spinner from 'components/Spinner';
 import { ListItem } from './ContactList.styled';
 import { useContactsFormFields, useSubmitContactForm } from 'hooks';
 import {
   useGetContactsQuery,
   useUpdateContactMutation,
 } from 'redux/contactsApi';
-import Spinner from 'components/Spinner';
 import {
   EditForm,
   Field,
@@ -17,7 +17,7 @@ import {
 import { BsFillPersonFill, BsFillTelephoneFill } from 'react-icons/bs';
 import { useMediaQuery } from 'react-responsive';
 
-const EditFormItem = ({ contactId, oldName, oldPhone, onCancel, onUpdate }) => {
+const EditFormItem = ({ contactId, oldName, oldPhone, onCancel }) => {
   const [updateContact, { isLoading: isUpdating }] = useUpdateContactMutation();
 
   const { name, phone, onChangeHandle } = useContactsFormFields({

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const List = styled.ul`
   list-style: none;
-  /* padding-top: ${p => p.theme.space[4]}; */
+
   padding-left: ${p => p.theme.space[4]};
   padding-right: ${p => p.theme.space[4]};
   display: grid;
@@ -19,9 +19,7 @@ export const ListItem = styled.li`
   border-bottom: 1px solid;
   border-color: ${p => p.theme.colors.gray[50]};
 
-  /* margin-bottom: ${p => p.theme.space[4]}; */
   :last-child {
-    /* margin-bottom: 0; */
     border-bottom: none;
   }
 `;
@@ -47,8 +45,6 @@ export const Name = styled.div`
     flex-basis: 50%;
     font-size: ${p => p.theme.fontSizes.md};
   }
-
-  /* width: 170px; */
 `;
 
 export const Number = styled.div`
@@ -62,7 +58,6 @@ export const Number = styled.div`
   @media screen and (min-width: 480px) {
     font-size: ${p => p.theme.fontSizes.md};
   }
-  /* width: 120px; */
 `;
 
 export const ContactFormWrapper = styled.form`
@@ -70,10 +65,6 @@ export const ContactFormWrapper = styled.form`
   align-items: center;
   line-height: 1;
 `;
-
-// export const ToolsCell = styled.td`
-//   display: flex;
-// `;
 
 export const ToolsWrapper = styled.div`
   display: flex;

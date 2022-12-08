@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from 'components/Button';
+import Spinner from 'components/Spinner';
 import { nanoid } from 'nanoid';
 import { FormBlock, FormInput, FormLabel } from './ContactForm.styled';
 import { useAddContactMutation, useGetContactsQuery } from 'redux/contactsApi';
 import { useContactsFormFields, useSubmitContactForm } from 'hooks';
-import Spinner from 'components/Spinner';
 
 const ContactForm = () => {
   const { name, phone, onChangeHandle, resetFields } = useContactsFormFields({
